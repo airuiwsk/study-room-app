@@ -1,0 +1,26 @@
+<!doctype html><html lang="ja"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#101419"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="description" content="撮るだけで構図を整える、ゼロ待ちカメラの実験版。"><link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon.svg" type="image/svg+xml">
+<title>FRAME70 — 構図カメラ</title><link rel="stylesheet" href="styles.css"></head><body>
+<main id="app">
+<section id="cameraPage" class="page">
+  <div id="viewfinder">
+    <video id="camera" autoplay muted playsinline></video>
+    <canvas id="guides"></canvas>
+    <canvas id="sample" hidden></canvas>
+    <div class="scrim top"></div><div class="scrim bottom"></div>
+    <header class="topbar"><div class="brand">FRAME<span>70</span><small>BETA</small></div><button id="helpButton" class="iconbtn" aria-label="使い方"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.3 9a2.7 2.7 0 1 1 4.1 2.4c-1.1.7-1.4 1.1-1.4 2.3M12 17.5v.2"/></svg></button></header>
+    <div id="statusChip" class="statusChip"><span class="pulse"></span><span id="statusText">カメラを準備中</span></div>
+    <div id="guideBubble" class="guideBubble" aria-live="polite"><span id="guideIcon">↗</span><span id="guideText">構図を解析中</span></div>
+    <div id="focusLabel" class="focusLabel">画面をタップすると主役を指定できます</div>
+    <div class="bottomStatus"><span id="analyzeStatus">補助ガイド: 準備中</span><span id="shotRatio">4:3</span></div>
+    <div id="permissionPanel" class="permissionPanel" hidden><div class="permMark">◉</div><h2 id="permissionTitle">カメラへのアクセスが必要です</h2><p id="permissionCopy">カメラ映像は端末内だけで解析します。サーバーに送信しません。</p><button id="retryCamera" class="primary">カメラを起動</button><button id="fileFallback" class="quiet">写真を選んで補正を試す</button></div>
+  </div>
+  <footer id="toolbar"><button id="modeButton" class="toolBtn" aria-label="ガイド表示を切替"><svg viewBox="0 0 24 24"><path d="M4 9V5h4M16 5h4v4M20 15v4h-4M8 19H4v-4M8 12h8M12 8v8"/></svg><span id="modeLabel">ガイドON</span></button><button id="shutter" class="shutter" aria-label="写真を撮る"><span></span></button><button id="flipButton" class="toolBtn" aria-label="カメラ切替"><svg viewBox="0 0 24 24"><path d="M4 9a8 8 0 0 1 14-4l2 2M20 4v3h-3M20 15a8 8 0 0 1-14 4l-2-2M4 20v-3h3"/></svg><span>切替</span></button></footer>
+  <input type="file" id="importFile" accept="image/*" hidden>
+</section>
+<section id="resultPage" class="page" hidden><header class="resultHeader"><button id="backButton" class="backBtn" aria-label="カメラへ戻る">‹</button><div>撮影結果<small>補正前・補正後を比較</small></div><button id="infoBtn" class="iconbtn" aria-label="補正情報">ⓘ</button></header><div class="resultImageWrap"><img id="resultImage" alt="撮影した写真"><span id="resultBadge" class="resultBadge">自動補正</span></div><div class="resultControls"><div id="compareSelector" class="segment"><button id="showAdjusted" class="selected">補正後</button><button id="showOriginal">元画像</button></div><p id="resultSummary">写真の構図を解析しています。</p><button id="saveButton" class="primary full">写真を保存・共有</button><button id="retakeButton" class="quiet full">もう一度撮る</button></div></section>
+<div id="helpModal" class="modal" hidden><div class="modalCard"><button id="closeHelp" class="modalClose" aria-label="閉じる">×</button><div class="modalLogo">FRAME<span>70</span></div><h2>いつもどおり、撮るだけ。</h2><p>構図のズレが大きいときだけ、画面上部に短いガイドを表示します。必要なければ、そのままシャッターを押してください。</p><div class="helpItem"><b>↗</b><span>矢印の方向にスマホを向けます。</span></div><div class="helpItem"><b>⊙</b><span>画面をタップすると、撮りたい主役を指定できます。</span></div><div class="helpItem"><b>▣</b><span>撮影後に元画像と補正画像を比較・保存できます。</span></div><p class="note">実験版：顔・物体の高度な認識、3D位置移動の指示、PhotoGuiderの学習済みモデルは未搭載。撮影映像は外部送信しません。</p><button id="helpDone" class="primary full">撮影を始める</button></div></div>
+<div id="toast" role="status" aria-live="polite"></div>
+</main><script src="app.js" defer></script></body></html>
